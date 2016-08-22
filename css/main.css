@@ -1,0 +1,175 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+label {
+    cursor: inherit;
+}
+
+.left {
+    float: left;
+}
+
+.progress-bar-small {
+    width: 200px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.bar {
+    background-size: 40px 40px;
+    background: #99ff45;
+    height: 20px;
+    border-radius: 10px 10px 10px 10px;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+
+}
+
+.bar-building {
+    background-size: 40px 40px;
+    background: #bb6aff;
+    height: 20px;
+    border-radius: 10px 10px 10px 10px;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+}
+
+.purchase-building {
+    cursor: pointer;
+    border: 1px solid #000;
+    margin: .25em;
+    padding: 10px;
+    width: 180px;
+    height: 180px;
+    float: left;
+    box-shadow: 5px 5px 5px #888;
+}
+
+.buyable-false {
+    cursor: not-allowed;
+    box-shadow: 5px 5px 5px #888 inset;
+    background: #F2F2F2;
+}
+
+.buyable-true {
+    cursor: pointer;
+    box-shadow: 5px 5px 5px #888;
+}
+
+
+.building-queue-item {
+    width: 100px;
+    border: 1px solid #000;
+    margin: .25em;
+    padding: .4em;
+    float: left;
+
+}
+
+.research-item {
+    border: 1px solid #000;
+    margin: .25em;
+    padding-left: .6em;
+    padding-top: .4em;
+    padding-bottom: .25em;
+}
+
+body
+{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.content-pane
+{
+    display: flex;
+
+}
+
+.main-content {
+    float: left;
+    width:700px;
+    flex:1;
+}
+.sidebar {
+    float: left;
+    margin-left: 100px;
+    flex:1;
+}
+
+.padder {
+    background-color: #b7c6d9;
+    background-size: 40px 40px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+.top-gap {
+    display: inline-block;
+    padding-top: 5px;
+}
+
+.spacer {
+    margin: 5px;
+}
+
+label.topic {
+    /* min-width: 50px; */
+    width: 5em;
+}
+
+.worker-count {
+    width: 3em;
+    display: inline-block;
+    text-align: center;
+}
+
+.button-style {
+    cursor: pointer;
+    -moz-box-shadow: inset 0px 1px 0px 0px #cae3fc;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #cae3fc;
+    box-shadow: inset 0px 1px 0px 0px #cae3fc;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #4197ee));
+    background: -moz-linear-gradient(center top, #79bbff 5%, #4197ee 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#4197ee');
+    background-color: #79bbff;
+    -webkit-border-top-left-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
+    -moz-border-radius-topright: 6px;
+    border-top-right-radius: 6px;
+    -webkit-border-bottom-right-radius: 6px;
+    -moz-border-radius-bottomright: 6px;
+    border-bottom-right-radius: 6px;
+    -webkit-border-bottom-left-radius: 6px;
+    -moz-border-radius-bottomleft: 6px;
+    border-bottom-left-radius: 6px;
+    text-indent: 0;
+    border: 1px solid #469df5;
+    display: inline-block;
+    color: #ffffff;
+    font-weight: bold;
+    font-style: normal;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 1px 1px 0px #287ace;
+}
+
+.button-style:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4197ee), color-stop(1, #79bbff));
+    background: -moz-linear-gradient(center top, #4197ee 5%, #79bbff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4197ee', endColorstr='#79bbff');
+    background-color: #4197ee;
+}
+
+.button-style:active {
+    position: relative;
+    top: 1px;
+}
+
+#building-skill-level {
+margin-left: 283px;
+}

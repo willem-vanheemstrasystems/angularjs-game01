@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html ng-app="gnomoreHeroesApp">
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+ <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Gnomore Heroes</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="icon"
+          type="image/png"
+          href="favicon.ico ">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.15/angular-cookies.min.js"></script>
+    <script src="js/controller.js"></script>
+</head>
+<body ng-controller="GameController">
+    <h1>Gnomore Heroes</h1>
+    <div>
+        <span><label>Gnomes:</label> {{gamedata.gnomes}}/{{gamedata.totalGnomes}}</span>
+        <span><label>Free Space:</label> {{gamedata.space}}</span>
+        <span><label>Mushrooms:</label> {{gamedata.mushrooms}}</span>
+        <span><label>Stone:</label> {{gamedata.stone}}</span>
+        <span><label>Underpants!!!:</label> {{gamedata.underpants}}</span>
+        <span><label>Research:</label> {{gamedata.research}}</span>
+        <span><label>Depth:</label> {{gamedata.depth}}</span>
+    </div>
+    <hr>
+    <div class="content-pane">
+        <div class="main-content">
+            <div class="worker-distribution">
+                <div class="spacer">
+                    <div class="left">
+                        <span class="fixed-width">
+                            <label class="topic">Mining:</label>
+                            <span class="worker-count">{{gamedata.miners}}</span>
+                        </span>
+                        <span class="button-style" ng-click="changeMiners(-1)">-</span>
+                        <span class="button-style" ng-click="changeMiners(1)">+</span>
+                    </div>
+                    <div class="progress-bar-small left">
+                        <div class="padder">
+                            <div class="bar" style="width: {{miningProgress()}}%; max-width: 100%;"></div>
+                        </div>
+                    </div>
+                    <span class="top-gap">{{miningRate()}}/sec</span>
+                    <label>Skill level:</label> <span>{{miningLevel()}}</span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="spacer">
+                    <div class="left">
+                        <span class="fixed-width">
+                            <label class="topic">Farming:</label>
+                            <span class="worker-count">{{gamedata.farmers}}</span>
+                        </span>
+                        <span class="button-style" ng-click="changeFarmers(-1)">-</span>
+                        <span class="button-style" ng-click="changeFarmers(1)">+</span>
+                    </div>
+                    <div class="progress-bar-small left">
+                        <div class="padder">
+                            <div class="bar" style="width: {{farmingProgress()}}%; max-width: 100%;"></div>
+                        </div>
+                    </div>
+                    <span class="top-gap">{{farmingRate()}}/sec</span>
+                    <label>Skill level:</label> <span>{{farmingLevel()}}</span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="spacer">
+                    <div class="left">
+                        <label class="topic">Stealing:</label>
+                        <span class="worker-count">{{gamedata.thieves}}</span>
+                        <span class="button-style" ng-click="changeThieves(-1)">-</span>
+                        <span class="button-style" ng-click="changeThieves(1)">+</span>
+                    </div>
+                    <div class="progress-bar-small left">
+                        <div class="padder">
+                            <div class="bar" style="width: {{thievingProgress()}}%; max-width: 100%;"></div>
+                        </div>
+                    </div>
+                    <span class="top-gap">{{thievingRate()}}%</span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="spacer">
+                    <label class="topic">Research:</label>
+                    <span class="worker-count">{{gamedata.researchers}}</span>
+                    <span class="button-style" ng-click="changeResearchers(-1)">-</span>
+                    <span class="button-style" ng-click="changeResearchers(1)">+</span>
+                </div>
+                <div class="spacer">
+                    <label class="topic">Building:</label>
+                    <span class="worker-count">{{gamedata.builders}}</span>
+                    <span class="button-style" ng-click="changeBuilders(-1)">-</span>
+                    <span class="button-style" ng-click="changeBuilders(1)">+</span>
+                    <span id="building-skill-level"><label>Skill level:</label> {{buildingLevel()}}</span>
+                </div>
+            </div>
+            <div>
+                <h2>Buildings</h2>
+                <div class="available-buildings">
+                    <div class="purchase-building buyable-{{buyHutEnabled()}}" ng-click="buyHut()">
+                        <label>Hut({{gamedata.buildings.huts}})</label>
+                        <div><label>Space:</label>{{buildings.hut.space}}</div>
+                        <div><label>Mushrooms:</label>{{buildings.hut.mushrooms}}</div>
+                        <em>{{buildings.hut.description}}</em>
+                    </div>
+                    <div class="purchase-building buyable-{{buyHouseEnabled()}}" ng-click="buyHouse()"
+                         ng-show="gamedata.buildings.houseVisible">
+                        <label>House({{gamedata.buildings.houses}})</label>
+                        <div><label>Huts:</label>1</div>
+                        <div><label>Mushrooms:</label>{{buildings.house.mushrooms}}</div>
+                        <em>{{buildings.house.description}}</em>
+                    </div>
+                    <div class="purchase-building buyable-{{buyVillageEnabled()}}" ng-click="buyVillage()"
+                         ng-show="gamedata.buildings.villageVisible">
+                        <label>Village({{gamedata.buildings.villages}})</label>
+                        <div><label>Houses:</label><span>4</span></div>
+                        <div><label>Mushrooms:</label><span>{{buildings.village.mushrooms}}</span></div>
+                        <div><label>Stone:</label><span>{{buildings.village.stone}}</span></div>
+                        <em>{{buildings.village.description}}</em>
+                    </div>
+                    <div class="purchase-building buyable-{{buyTownEnabled()}}" ng-click="buyTown()"
+                         ng-show="gamedata.buildings.townVisible">
+                        <label>Town({{gamedata.buildings.towns}})</label>
+                        <div><label>Village:</label><span>1</span></div>
+                        <div><label>Mushrooms:</label><span>{{buildings.town.mushrooms}}</span></div>
+                        <div><label>Stone:</label><span>{{buildings.town.stone}}</span></div>
+                        <em>{{buildings.town.description}}</em>
+                    </div>
+                    <div class="purchase-building buyable-{{buyCityEnabled()}}" ng-click="buyCity()"
+                         ng-show="gamedata.buildings.cityVisible">
+                        <label>City({{gamedata.buildings.cities}})</label>
+                        <div><label>Towns:</label><span>2</span></div>
+                        <div><label>Mushrooms:</label><span>{{buildings.city.mushrooms}}</span></div>
+                        <div><label>Stone:</label><span>{{buildings.city.stone}}</span></div>
+                        <em>{{buildings.city.description}}</em>
+                    </div>
+                    <div class="purchase-building buyable-{{buyCastleEnabled()}}" ng-click="buyCastle()"
+                         ng-show="gamedata.buildings.castleVisible">
+                        <label>Castle({{gamedata.buildings.castles}})</label>
+                        <div><label>City:</label> 1</div>
+                        <div><label>Space:</label><span>{{buildings.castle.space}}</span></div>
+                        <div><label>Mushrooms:</label><span>{{buildings.castle.mushrooms}}</span></div>
+                        <div><label>Stone:</label><span>{{buildings.castle.stone}}</span></div>
+                        <em>{{buildings.castle.description}}</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="research-list">
+                <div class="research-item " ng-repeat="item in research" ng-click="buyResearch(item.id)"
+                     ng-show="isResearchAvailable(item.id)" ng-class="{'buyable-true' : gamedata.research >= item.cost, 'buyable-false' : gamedata.research < item.cost}">
+                    <label class="research-name">{{item.name}}</label>
+                    <strong class="research-cost">{{item.cost}}</strong>
+                    <br />
+                    <em class="research-text">{{item.description}}</em>
+
+                </div>
+            </div>
+            <h2>Build Queue</h2>
+            <div class="building-queue">
+                <div class="building-queue-item" ng-repeat="building in buildQueue">
+                    <label>{{building.name}}</label>
+                    <div class="padder">
+                        <div class="bar-building" style="width: {{building.progress}}%; max-width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/plugins.js"></script>
+    <script src="js/components.js"></script>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-48242599-3', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+</body>
+</html>
+
